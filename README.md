@@ -10,10 +10,14 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+You can run your application in dev mode that enables live coding!! using:
 ```shell script
 ./mvnw compile quarkus:dev
 ```
+* `./mvnw` because we use maven wrapper
+* `dev` comes from [quarkus-maven-plugin](https://github.com/quarkusio/quarkus-platform/blob/main/generated-platform-project/quarkus-maven-plugin/src/main/java/io/quarkus/maven/DevMojo.java#L121)
+* Test your application running fine
+  * `curl localhost:8080/hello`
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -58,3 +62,6 @@ If you want to learn more about building native executables, please consult http
 Easily start your Reactive RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+## Notes
+* 'mvnw' is the maven wrapper
