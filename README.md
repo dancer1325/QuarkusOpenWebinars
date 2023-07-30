@@ -43,17 +43,26 @@ The application, packaged as an _über-jar_, is now runnable using `java -jar ta
 
 You can create a native executable using: 
 ```shell script
-./mvnw package -Dnative
+./mvnw package -Pnative
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+Or, if you don't have GraalVM installed, you can run the native executable build in a container (-> You need to run your Docker daemon previously) using: 
 ```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
-
-You can then execute your native executable with: `./target/getting-started-1.0.0-SNAPSHOT-runner`
+If it's stuck in the first build step -> restart it the process
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+
+### Run the native executable
+After generating the previous packages, run:
+
+`docker build -f src/main/docker/Dockerfile.native -t quarkus/getting-started .`
+
+`docker run -i --rm -p 8080:8080 quarkus/getting-started`
+
+Now you can test that it's working `curl localhost:8080/hello` 
+
 
 ## Provided Code
 
