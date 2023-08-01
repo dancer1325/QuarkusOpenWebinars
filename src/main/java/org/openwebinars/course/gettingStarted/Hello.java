@@ -9,6 +9,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
+
 
 @Path("/hello")
 public class Hello {
@@ -19,9 +21,12 @@ public class Hello {
     @Inject
     HelloService helloService;
 
+    Logger logger = Logger.getLogger(Hello.class.getName());
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
+        logger.debug("/hello");
 //        return "Hello from RESTEasy Reactive";
         //return messageConfigured;
         return helloService.toUpperCase(messageConfigured);
