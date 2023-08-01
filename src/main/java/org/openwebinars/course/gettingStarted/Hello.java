@@ -1,6 +1,7 @@
 package org.openwebinars.course.gettingStarted;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -38,7 +39,7 @@ public class Hello {
     // MediaType.APPLICATION_JSON       It's the default one for POST
     @POST()
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createBeer(Beer beer) {
+    public Response createBeer(@Valid Beer beer) {
         System.out.println(beer);
         return Response.ok().build();
     }

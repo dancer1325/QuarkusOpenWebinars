@@ -83,3 +83,8 @@ Easily start your Reactive RESTful Web Services
     * Check all the supported quarkus extensions
   * `./mvnw quarkus:add-extension -Dextensions="quarkus-resteasy-jsonb"`
     * Add a quarkus extension
+  * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-validator"`
+    * Add a quarkus extension
+  * ` curl -d '{"name":"Alfredo2", "capacity":50}' -H "Content-Type: application/json" -X POST localhost:8080/hello -v`
+    * Check the right behavior of the validations
+    * "-v" shows more detailed information
