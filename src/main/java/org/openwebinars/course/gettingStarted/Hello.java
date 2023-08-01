@@ -26,6 +26,10 @@ public class Hello {
     @RestClient
     OpenMeteoService openMeteoService;
 
+    @Inject
+    @RestClient
+    WorldClockService worldClockService;
+
     Logger logger = Logger.getLogger(Hello.class.getName());
 
     @GET
@@ -60,6 +64,14 @@ public class Hello {
     @Produces(MediaType.APPLICATION_JSON)
     public OpenMeteo getCurrentTemperature() {
         return openMeteoService.getCurrentOpenMeteo();
+    }
+
+    // It could return a timeOut
+    @Path("/currentDateTime")
+    @GET()
+    @Produces(MediaType.APPLICATION_JSON)
+    public WorldClock getCurrentDateTime() {
+        return worldClockService.getCurrentDateTime();
     }
 
 }
