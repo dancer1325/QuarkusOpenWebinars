@@ -1,5 +1,6 @@
 package org.openwebinars.course.gettingStarted;
 
+import jakarta.ws.rs.BeanParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -13,4 +14,9 @@ public interface WorldClockService {
     @Path("/json/cet/now")
     @Produces(MediaType.APPLICATION_JSON)
     WorldClock getCurrentDateTime();
+
+    @GET
+    @Path("/json/cet/now")
+    @Produces(MediaType.APPLICATION_JSON)
+    WorldClock getCurrentDateTimeWithHeaders(@BeanParam WorldClockHeaders worldClockHeaders);
 }

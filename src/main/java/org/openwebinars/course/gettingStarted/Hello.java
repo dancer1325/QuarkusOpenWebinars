@@ -9,6 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
@@ -69,9 +70,21 @@ public class Hello {
     // It could return a timeOut
     @Path("/currentDateTime")
     @GET()
+    // Set a static header
+    //@ClientHeaderParam(name="X-Logger", value = "DEBUG")
     @Produces(MediaType.APPLICATION_JSON)
     public WorldClock getCurrentDateTime() {
         return worldClockService.getCurrentDateTime();
+    }
+
+    // It could return a timeOut
+    @Path("/currentDateTimeWithHeaders")
+    @GET()
+    @Produces(MediaType.APPLICATION_JSON)
+    public WorldClock getCurrentDateTimeViaHeaders() {
+        WorldClockHeaders worldClockHeaders = new WorldClockHeaders();
+        worldClockHeaders.logger="DEBUG";
+        return worldClockService.getCurrentDateTimeWithHeaders(worldClockHeaders);
     }
 
 }

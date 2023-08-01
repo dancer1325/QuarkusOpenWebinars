@@ -24,6 +24,7 @@ You can run your application in dev mode that enables live coding!! using:
     * "-v" shows more detailed information
   * ` curl -d '{"name":"Alfredo2", "capacity":150, "expirationDate":"2020-02-11"}' -H "Content-Type: application/json" -X POST localhost:8080/hello -v`
   * `curl localhost:8080/hello/currentDateTime`
+  * `curl localhost:8080/hello/currentDateTimeWithHeaders -v`
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
