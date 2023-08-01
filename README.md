@@ -18,6 +18,8 @@ You can run your application in dev mode that enables live coding!! using:
 * `dev` comes from [quarkus-maven-plugin](https://github.com/quarkusio/quarkus-platform/blob/main/generated-platform-project/quarkus-maven-plugin/src/main/java/io/quarkus/maven/DevMojo.java#L121)
 * Test your application running fine
   * `curl localhost:8080/hello`
+  * `curl localhost:8080/hello/beer`
+  * `curl -d '{"name":"Alfredo2", "capacity":5000}' -H "Content-Type: application/json" -X POST localhost:8080/hello`
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -77,3 +79,7 @@ Easily start your Reactive RESTful Web Services
 
 ## Notes
 * 'mvnw' is the maven wrapper
+  * `./mvnw quarkus:list-extensions`
+    * Check all the supported quarkus extensions
+  * `./mvnw quarkus:add-extension -Dextensions="quarkus-resteasy-jsonb"`
+    * Add a quarkus extension
