@@ -6,6 +6,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -85,6 +86,19 @@ public class Hello {
         WorldClockHeaders worldClockHeaders = new WorldClockHeaders();
         worldClockHeaders.logger="DEBUG";
         return worldClockService.getCurrentDateTimeWithHeaders(worldClockHeaders);
+    }
+
+    // Via JAXWS specification
+    // It could return a timeOut
+    @Path("/currentDateTimeWithJAXRS")
+    @GET()
+    @Produces(MediaType.APPLICATION_JSON)
+    public WorldClock getCurrentDateTimeViaJAXWS() {
+        return ClientBuilder.newClient()
+                .target("http://worldclockapi.com")
+                .path("/api/json/cet/now")
+                .request()
+                .get(WorldClock.class);
     }
 
 }
