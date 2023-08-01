@@ -9,6 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 
@@ -20,6 +21,10 @@ public class Hello {
 
     @Inject
     HelloService helloService;
+
+    @Inject
+    @RestClient
+    OpenMeteoService openMeteoService;
 
     Logger logger = Logger.getLogger(Hello.class.getName());
 
@@ -48,4 +53,13 @@ public class Hello {
         System.out.println(beer);
         return Response.ok().build();
     }
+
+    // TODO: Fix why it's not working
+    @Path("/currentTemperature")
+    @GET()
+    @Produces(MediaType.APPLICATION_JSON)
+    public OpenMeteo getCurrentTemperature() {
+        return openMeteoService.getCurrentOpenMeteo();
+    }
+
 }

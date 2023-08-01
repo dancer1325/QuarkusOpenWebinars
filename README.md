@@ -88,4 +88,6 @@ Easily start your Reactive RESTful Web Services
     * Add a quarkus extension
   * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-validator"`
     * Add a quarkus extension
+  * `./mvnw quarkus:add-extension -Dextensions="quarkus-rest-client"`
+    * Add a quarkus extension
   
