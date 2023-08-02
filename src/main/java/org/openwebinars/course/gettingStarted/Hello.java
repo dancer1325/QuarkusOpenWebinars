@@ -1,17 +1,18 @@
 package org.openwebinars.course.gettingStarted;
 
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
+
+import java.net.URI;
 
 
 @Path("/hello")
@@ -33,6 +34,9 @@ public class Hello {
 
     @Inject
     ExpensiveService expensiveService;
+
+    @Inject
+    EntityManager entityManager;
 
     Logger logger = Logger.getLogger(Hello.class.getName());
 
@@ -109,6 +113,26 @@ public class Hello {
                 .path("/api/json/cet/now")
                 .request()
                 .get(WorldClock.class);
+    }
+
+    @POST()
+    @Path("/developer")
+    @Transactional      // Required since we are creating it
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createNewDeveloper(Developer developer) {
+        System.out.println(developer);
+        entityManager.persist(developer);
+        return Response.created(URI.create("/developer" + developer.getId())).build();
+    }
+
+    @GET()
+    @Path("/developer/{id}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public Developer getDeveloper(@PathParam("id") Integer id) {
+        System.out.println(id);
+        return entityManager.find(Developer.class, id);
     }
 
 }
