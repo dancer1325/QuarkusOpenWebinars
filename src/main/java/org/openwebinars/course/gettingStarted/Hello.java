@@ -10,7 +10,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
@@ -32,6 +31,9 @@ public class Hello {
     @RestClient
     WorldClockService worldClockService;
 
+    @Inject
+    ExpensiveService expensiveService;
+
     Logger logger = Logger.getLogger(Hello.class.getName());
 
     @GET
@@ -41,6 +43,14 @@ public class Hello {
 //        return "Hello from RESTEasy Reactive";
         //return messageConfigured;
         return helloService.toUpperCase(messageConfigured);
+    }
+
+    @GET
+    @Path("/calculate")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int calculate() {
+        logger.debug("/calculate");
+        return expensiveService.calculate();
     }
 
     @Path("/beer")

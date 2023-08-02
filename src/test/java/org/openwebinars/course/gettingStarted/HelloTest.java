@@ -12,11 +12,20 @@ public class HelloTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)
-             //.body(is("Hello from RESTEasy Reactive"));
-            .body(is("HELLO WORLD"));
+                .when().get("/hello")
+                .then()
+                .statusCode(200)
+                //.body(is("Hello from RESTEasy Reactive"));
+                .body(is("HELLO WORLD"));
+    }
+
+    @Test
+    public void testCalculate() {
+        given()
+                .when().get("/hello/calculate")
+                .then()
+                .statusCode(200)
+                .body(is("5"));
     }
 
 }
