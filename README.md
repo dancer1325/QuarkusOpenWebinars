@@ -95,4 +95,8 @@ Easily start your Reactive RESTful Web Services
     * Add a quarkus extension
   * `./mvnw test`
     * Run tests
+  * `./mvnw verify -Pnative`
+    * Run integration tests.
+    * Previous requirements
+      * Install GraalVM locally
   
