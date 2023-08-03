@@ -127,6 +127,7 @@ Easily start your Reactive RESTful Web Services
       * Install GraalVM locally
   * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-orm, quarkus-jdbc-mariadb"`
   * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-orm-panache"`
+  *  `./mvnw quarkus:add-extension -Dextensions="quarkus-flyway"`
 * Download a [mariaDB image from dockerHub](https://hub.docker.com/_/mariadb)
   * `docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_ROOT_PASSWORD=my-secret-pw --env MARIADB_DATABASE=some-mariadb -p 3306:3306  mariadb:latest`
 

@@ -1,0 +1,1 @@
+INSERT INTO developernew VALUES (1, 'Vero', 4)
