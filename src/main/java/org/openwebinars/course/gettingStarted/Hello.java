@@ -160,11 +160,50 @@ public class Hello {
     }
 
     @GET()
+    @Path("/developerWithPanache/allAsEntityBase")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PanacheEntityBase> getAllDevelopersAsEntityBaseWithPanache() {
+        return DeveloperWithPanache.findAll().stream().collect(Collectors.toList());
+    }
+
+    @GET()
     @Path("/developerWithPanache/all")
     @Transactional      // Required since we are creating it
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PanacheEntityBase> getAllDevelopersWithPanache() {
-        return DeveloperWithPanache.findAll().stream().collect(Collectors.toList());
+    public List<DeveloperWithPanache> getAllDevelopersWithPanache() {
+        return DeveloperWithPanache.findAll().list();
+    }
+
+    @GET()
+    @Path("/developerWithPanache/name/{name}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public DeveloperWithPanache getDeveloperWithPanacheByName(@PathParam("name") String name) {
+        // By default, the id in Panache is a Long
+        System.out.println(name);
+        return DeveloperWithPanache.find("name", name).firstResult();
+    }
+
+    // TODO: Fix it to make it work
+    @GET()
+    @Path("/developerWithPanache/nameJQL/{name}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public DeveloperWithPanache getDeveloperWithPanacheByNameViaJQL(@PathParam("name") String name) {
+        // By default, the id in Panache is a Long
+        System.out.println(name);
+        return DeveloperWithPanache.find("SELECT * FROM 'some-mariadb' WHERE name=?", name).firstResult();
+    }
+
+    @GET()
+    @Path("/developerWithPanache/name/{name}/age/{age}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public DeveloperWithPanache getDeveloperWithPanacheByNameAndAge(@PathParam("name") String name, @PathParam("age") Integer age) {
+        // By default, the id in Panache is a Long
+        System.out.println(name);
+        return DeveloperWithPanache.find("name = ?1 and age = ?2", name, age).firstResult();
     }
 
 }

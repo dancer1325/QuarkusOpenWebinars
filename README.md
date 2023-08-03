@@ -38,6 +38,11 @@ You can run your application in dev mode that enables live coding!! using:
     * Persist data in the MariaDB via Panache adding a new column with data already persisted
   * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/all -v`
     * Get all persisted data with Panache
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/allAsEntityBase -v`
+    * Get all persisted data with Panache
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/name/Rosi -v`
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/nameJQL/Rosi -v`
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/name/Judith/age/26 -v`
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
