@@ -1,5 +1,6 @@
 package org.openwebinars.course.gettingStarted;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,8 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Path("/hello")
@@ -133,6 +136,35 @@ public class Hello {
     public Developer getDeveloper(@PathParam("id") Integer id) {
         System.out.println(id);
         return entityManager.find(Developer.class, id);
+    }
+
+    @POST()
+    @Path("/developerWithPanache")
+    @Transactional      // Required since we are creating it
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createNewDeveloperWithPanache(DeveloperWithPanache developer) {
+        System.out.println(developer);
+        developer.persist();
+        return Response.created(URI.create("/developer" + developer.id)).build();
+    }
+
+    @GET()
+    @Path("/developerWithPanache/{id}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public DeveloperWithPanache getDeveloperWithPanache(@PathParam("id") Long id) {
+        // By default, the id in Panache is a Long
+        System.out.println(id);
+        return DeveloperWithPanache.findById(id);
+    }
+
+    @GET()
+    @Path("/developerWithPanache/all")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PanacheEntityBase> getAllDevelopersWithPanache() {
+        return DeveloperWithPanache.findAll().stream().collect(Collectors.toList());
     }
 
 }

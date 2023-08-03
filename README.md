@@ -27,7 +27,17 @@ You can run your application in dev mode that enables live coding!! using:
   * `curl localhost:8080/hello/currentDateTimeWithHeaders -v`
   * `curl localhost:8080/hello/currentDateTimeWithJAXRS -v`
   * `curl -d '{"name":"Alfredo2", "id":50}' -H "Content-Type: application/json" -X POST localhost:8080/hello/developer -v`
+    * Persist data in the MariaDB via JPA
   * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developer/50 -v`
+    * Get concrete persisted data in the MariaDB via JPA
+  * `curl -d '{"name":"Rosi"}' -H "Content-Type: application/json" -X POST localhost:8080/hello/developerWithPanache -v`
+    * Persist data in the MariaDB via Panache
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/1 -v`
+    * Get concrete persisted data in the MariaDB via Panache
+  * `curl -d '{"name":"Judith", "age":26}' -H "Content-Type: application/json" -X POST localhost:8080/hello/developerWithPanache -v`
+    * Persist data in the MariaDB via Panache adding a new column with data already persisted
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/all -v`
+    * Get all persisted data with Panache
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -85,6 +95,11 @@ Easily start your Reactive RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
 
+## Persistence
+### JPA
+### Panache
+* Via Repository Pattern here
+
 ## Notes
 * 'mvnw' is the maven wrapper
   * `./mvnw quarkus:list-extensions`
@@ -102,6 +117,8 @@ Easily start your Reactive RESTful Web Services
     * Previous requirements
       * Install GraalVM locally
   * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-orm, quarkus-jdbc-mariadb"`
+  * `./mvnw quarkus:add-extension -Dextensions="quarkus-hibernate-orm-panache"`
 * Download a [mariaDB image from dockerHub](https://hub.docker.com/_/mariadb)
   * `docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_ROOT_PASSWORD=my-secret-pw --env MARIADB_DATABASE=some-mariadb -p 3306:3306  mariadb:latest`
+
   
