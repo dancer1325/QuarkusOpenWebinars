@@ -41,6 +41,9 @@ public class Hello {
     @Inject
     EntityManager entityManager;
 
+    @Inject
+    DeveloperWithPanacheRepository developerWithPanacheRepository;
+
     Logger logger = Logger.getLogger(Hello.class.getName());
 
     @GET
@@ -204,6 +207,28 @@ public class Hello {
         // By default, the id in Panache is a Long
         System.out.println(name);
         return DeveloperWithPanache.find("name = ?1 and age = ?2", name, age).firstResult();
+    }
+
+    // TODO: Fix it to make it work
+    @GET()
+    @Path("/developerWithPanacheViaDAO/name/{name}")
+    @Transactional      // Required since we are creating it
+    @Produces(MediaType.APPLICATION_JSON)
+    public Developer getDeveloperWithPanacheByNameViaDAO(@PathParam("name") String name) {
+        System.out.println(name);
+        return developerWithPanacheRepository.findByName(name);
+    }
+
+    // TODO: Fix it to make it work
+    @POST()
+    @Path("/developerWithPanacheViaDAO")
+    @Transactional      // Required since we are creating it
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createNewDeveloperWithPanacheViaDAO(Developer developer) {
+        System.out.println(developer);
+        developerWithPanacheRepository.create(developer);
+        return Response.created(URI.create("/developer" + developer.getId())).build();
     }
 
 }

@@ -43,6 +43,8 @@ You can run your application in dev mode that enables live coding!! using:
   * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/name/Rosi -v`
   * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/nameJQL/Rosi -v`
   * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanache/name/Judith/age/26 -v`
+  * `curl -d -H "Content-Type: application/json" -X GET localhost:8080/hello/developerWithPanacheViaDAO/name/Rosi -v`
+  * `curl -d '{"name":"Paloma", "age":26, "id":22}' -H "Content-Type: application/json" -X POST localhost:8080/hello/developerWithPanacheViaDAO -v`
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -103,7 +105,9 @@ Easily start your Reactive RESTful Web Services
 ## Persistence
 ### JPA
 ### Panache
-* Via Repository Pattern here
+* Via 
+  * Repository Pattern
+  * DAO pattern
 
 ## Notes
 * 'mvnw' is the maven wrapper
