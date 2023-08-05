@@ -100,6 +100,23 @@ public class Hello {
         return worldClockService.getCurrentDateTime();
     }
 
+    // Async, since it's wrapped under CompletionStage
+    @GET()
+    @Path("/currentDateTime/{timeZone}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<WorldClock> getCurrentDateTimeByTimeZone(@PathParam("timeZone") String timeZone) {
+        System.out.println(timeZone);
+        return worldClockService.getCurrentDateTimeByTimeZone(timeZone);
+    }
+
+    @GET()
+    @Path("/currentDateTime/{timeZone}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<WorldClock> getCurrentDateTimeByTimeZone(@PathParam("timeZone") String timeZone) {
+        System.out.println(timeZone);
+        return worldClockService.getCurrentDateTimeByTimeZone(timeZone);
+    }
+
     // It could return a timeOut
     @Path("/currentDateTimeWithHeaders")
     @GET()
@@ -245,6 +262,5 @@ public class Hello {
                 .run()
                 .thenApply(list -> list.toString());
     }
-
 
 }
