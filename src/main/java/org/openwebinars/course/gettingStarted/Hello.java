@@ -10,11 +10,13 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
 
@@ -230,5 +232,19 @@ public class Hello {
         developerWithPanacheRepository.create(developer);
         return Response.created(URI.create("/developer" + developer.getId())).build();
     }
+
+    // TODO: Fix it. "No ReactiveStreamsFactory implementation found!"
+    // Async endpoint
+    @GET()
+    @Path("/async")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompletionStage<String> getAsyncResult() {
+        return ReactiveStreams.of("h", "e","l", "l", "o")
+                .map(String::toUpperCase)
+                .toList()
+                .run()
+                .thenApply(list -> list.toString());
+    }
+
 
 }
