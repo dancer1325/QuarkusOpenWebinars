@@ -15,6 +15,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -109,12 +110,15 @@ public class Hello {
         return worldClockService.getCurrentDateTimeByTimeZone(timeZone);
     }
 
+    // TODO: Fix how to trigger it
+    // Async and make 2 calls in parallel and combining to return the value once you have both
     @GET()
-    @Path("/currentDateTime/{timeZone}")
+    @Path("/currentDateTimeInParallel")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompletionStage<WorldClock> getCurrentDateTimeByTimeZone(@PathParam("timeZone") String timeZone) {
-        System.out.println(timeZone);
-        return worldClockService.getCurrentDateTimeByTimeZone(timeZone);
+    public CompletionStage<List<WorldClock>> getCurrentDateInParallel() {
+        CompletionStage<WorldClock> cet = worldClockService.getCurrentDateTimeByTimeZone("cet");
+        return cet.thenCombineAsync(worldClockService.getCurrentDateTimeByTimeZone("gmt"),
+                (cetResult, gmtResult) -> Arrays.asList(cetResult, gmtResult));
     }
 
     // It could return a timeOut
